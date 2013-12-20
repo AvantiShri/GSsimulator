@@ -51,8 +51,31 @@ public class Student {
 		this.schoolPreferences = schoolPreferences;
 	}
 	
-	public void proposeToNext() {
-		throw new RuntimeException("Unimplemented");
+	/**
+	 * If the student is not engaged to a school, and there's schools left on the student's
+	 * preferences list, initiates proposal sequence
+	 */
+	public void proposeIfNecessary() {
+		if (engagedTo == null) {
+			School nextSchoolToProposeTo = getNextSchoolToProposeTo();
+			if (nextSchoolToProposeTo != null) {
+				nextSchoolToProposeTo.processApplication(this);
+			}
+		}
+	}
+	
+	//returns null if we are at the bottom of the preferences list
+	School getNextSchoolToProposeTo() {
+		if (currentRankSchoolSetIndex < (currentRankSchoolSet.size()-1)) {
+			++currentRankSchoolSetIndex;
+		} else {
+			currentRankSchoolSet = schoolPreferences.nextPreferred(currentRankSchoolSet.get(currentRankSchoolSetIndex));
+			if (currentRankSchoolSet == null) {
+				return null;
+			}
+			currentRankSchoolSetIndex = 0;
+		}
+		return currentRankSchoolSet.get(currentRankSchoolSetIndex);
 	}
 	
 	public void jilt() {
