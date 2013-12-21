@@ -12,15 +12,15 @@ public class School {
 	//class related stuff here...
 	static HashMap<String, School> schoolFactoryLookup = new HashMap<String,School>();	
 	static String NULLSCHOOLNAME = "nullSchool";
-	{
-		createSchool(NULLSCHOOLNAME,-1); //create the null school		
+	static {
+		schoolFactoryLookup.put(NULLSCHOOLNAME, new School(NULLSCHOOLNAME,1)); //create the null school		
 	}
 	
 	/**
 	 * Creates a school with name school name, throws exception if already exists
 	 * @param schoolName
 	 */
-	static void createSchool(String schoolName, Integer capacity) {
+	public static void createSchool(String schoolName, Integer capacity) {
 		if (schoolFactoryLookup.containsKey(schoolName)) {
 			throw new RuntimeException("A school with name "+schoolName+" already exists");
 		} else {
@@ -54,6 +54,7 @@ public class School {
 	Integer maxCapacity;
 	PriorityQueue<Student> acceptedStudents;
 	StudentComparator studentPreferenceComparator;
+	
 	private School(String schoolName, Integer maxCapacity) {
 		this.schoolName = schoolName;
 		this.maxCapacity = maxCapacity;

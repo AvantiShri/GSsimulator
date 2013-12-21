@@ -20,20 +20,27 @@ public class AllStudents implements Iterable<Student>{
 	public int size() {
 		return studentSet.size();
 	}
+	
+	void initProposalOrder() {
+		proposalOrder = new ArrayList<Student>();
+		proposalOrder.addAll(studentSet);
+	}
 		
 	/**
 	 * Initializes the proposal order if null, then randomizes it
 	 */
 	public void randomizeProposalOrder() {
 		if (proposalOrder == null) {
-			proposalOrder = new ArrayList<Student>();
-			proposalOrder.addAll(studentSet);
+			initProposalOrder();
 		}
 		proposalOrder = Utility.randomise(proposalOrder);
 	}
 
 	@Override
 	public Iterator<Student> iterator() {
+		if (proposalOrder == null) {
+			initProposalOrder();
+		}
 		return proposalOrder.iterator();
 	}
 	

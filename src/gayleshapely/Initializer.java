@@ -1,7 +1,7 @@
 package gayleshapely;
 
+import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class Initializer {
 	public GayleShapely initialize() {
 		GayleShapely gayleShapely = null;
 		try {
-			MyFileReader fileReader = new MyFileReader(new URL(inputFile));
+			MyFileReader fileReader = new MyFileReader(new File(inputFile).toURI().toURL());
 			Map<String, ArrayList<String>> contentsByTag = MyFileReader.splitByTags(fileReader.readRemainingLines());
 			parseStudents(contentsByTag.get(STUDENTS_TAG));
 			parseSchools(contentsByTag.get(SCHOOLS_TAG));

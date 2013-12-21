@@ -13,6 +13,7 @@ public class Preferences<E>{
 	HashMap<E,Integer> rankOfHashMap = new HashMap<E, Integer>();
 	
 	public Preferences(ArrayList<ArrayList<E>> ranksArray) {
+		this.ranksArray = ranksArray;
 		if (ranksArray == null) {
 			throw new RuntimeException("ranksArray should not be null");
 		}
@@ -20,7 +21,7 @@ public class Preferences<E>{
 			throw new RuntimeException("ranksArray has size 0");
 		}
 		
-		for (int i = 0; i <= ranksArray.size(); i++) {
+		for (int i = 0; i < ranksArray.size(); i++) {
 			for (E item : ranksArray.get(i)) {
 				rankOfHashMap.put(item,i);
 			}
@@ -75,7 +76,7 @@ public class Preferences<E>{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i <= ranksArray.size(); i++) {
+		for (int i = 0; i < ranksArray.size(); i++) {
 			if (i > 0) {
 				sb.append("; ");
 			}

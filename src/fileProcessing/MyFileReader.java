@@ -81,6 +81,7 @@ public class MyFileReader {
 	    			currentTagContents.add(aString);
 	    		}
     		}
+    		++i;
     	}
     	if (tagName != null) {
     		throw new RuntimeException("Did not find closing tag for: "+tagName);
