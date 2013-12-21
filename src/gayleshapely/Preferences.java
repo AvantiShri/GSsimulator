@@ -1,7 +1,11 @@
 package gayleshapely;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Preferences<E>{
 	
@@ -23,6 +27,10 @@ public class Preferences<E>{
 		}
 	}
 	
+	public Preferences(ItemRawRanks<E> itemRawRanks) {
+		this(itemRawRanks.getRanksArray());
+	}
+		
 	/**
 	 * This function is 0 indexed
 	 * @param item - the item to find the rank of
@@ -80,6 +88,41 @@ public class Preferences<E>{
 		return this.ranksArray.size();
 	}
 	
-
+	public static class ItemRawRank<E> {
+		Integer rawRankNumber;
+		E item;
+		public ItemRawRank(E item, Integer rawRankNumber) {
+			this.item = item;
+			this.rawRankNumber = rawRankNumber;
+		}
+	}
+	
+	public static class ItemRawRanks<E> {
+		Set<Integer> rawRankNumbers = new HashSet<Integer>();
+		HashMap<Integer,Set<E>> itemsAtRawRank = new HashMap<Integer,Set<E>>();
+		
+		public void addItemRawRank(ItemRawRank<E> itemRawRank) {
+			rawRankNumbers.add(itemRawRank.rawRankNumber);
+			if (itemsAtRawRank.containsKey(itemRawRank.rawRankNumber) == false) {
+				itemsAtRawRank.put(itemRawRank.rawRankNumber, new HashSet<E>());
+			}
+			itemsAtRawRank.get(itemRawRank.rawRankNumber).add(itemRawRank.item);
+		}
+		
+		public ArrayList<ArrayList<E>> getRanksArray() {
+			List<Integer> rawRanksList = new ArrayList<Integer>();
+			rawRanksList.addAll(rawRankNumbers);
+			Collections.sort(rawRanksList);
+			
+			ArrayList<ArrayList<E>> arrToReturn = new ArrayList<ArrayList<E>>();			
+			for (Integer rawRank : rawRanksList) {
+				ArrayList<E> itemsAtThisRank = new ArrayList<E>();
+				itemsAtThisRank.addAll(itemsAtRawRank.get(rawRank));
+				arrToReturn.add(itemsAtThisRank);
+			}
+			
+			return arrToReturn;
+		}
+	}
 	
 }
