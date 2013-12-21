@@ -10,7 +10,12 @@ import java.util.PriorityQueue;
  */
 public class School {
 	//class related stuff here...
-	static HashMap<String, School> schoolFactoryLookup = new HashMap<String,School>();
+	static HashMap<String, School> schoolFactoryLookup = new HashMap<String,School>();	
+	static String NULLSCHOOLNAME = "nullSchool";
+	{
+		createSchool(NULLSCHOOLNAME,-1); //create the null school		
+	}
+	
 	/**
 	 * Creates a school with name school name, throws exception if already exists
 	 * @param schoolName
@@ -21,6 +26,13 @@ public class School {
 		} else {
 			schoolFactoryLookup.put(schoolName, new School(schoolName, capacity));
 		}
+	}
+	
+	/**
+	 * @return a school representing the 'null school'
+	 */
+	static School getNullSchool() {
+		return getSchool(NULLSCHOOLNAME);
 	}
 	
 	/**
@@ -37,11 +49,10 @@ public class School {
 	}
 	
 	//instance-related stuff starts here...	
-	String schoolName;	
+	final String schoolName;	
 	Preferences<Student> studentPreferences;
 	Integer maxCapacity;
 	PriorityQueue<Student> acceptedStudents;
-	Boolean full;
 	StudentComparator studentPreferenceComparator;
 	private School(String schoolName, Integer maxCapacity) {
 		this.schoolName = schoolName;
@@ -53,6 +64,10 @@ public class School {
 		this.acceptedStudents = new PriorityQueue<Student>(maxCapacity, studentPreferenceComparator);
 	}
 	
+	public void setStudentPreferences(Preferences<Student> studentPreferences) {
+		this.studentPreferences = studentPreferences;
+	}
+	
 	/**
 	 * If the school has room, the student is accepted.
 	 * If the student is preferred to the least preferred student, the student is accepted, and the least
@@ -61,6 +76,10 @@ public class School {
 	 * @param student
 	 */
 	public void processApplication(Student student) {
+		if (this.studentPreferences == null) {
+			throw new RuntimeException("Student preferences is null for school "+this);
+		}
+		
 		if (remainingCapacity() > 0) {
 			accept(student);
 		} else {
@@ -76,28 +95,23 @@ public class School {
 	void accept(Student student) {
 		this.acceptedStudents.add(student);
 		student.getEngagedTo(this);
-		if (remainingCapacity() == 0) {
-			full = true;
-		}
 	}
 	
 	public Integer remainingCapacity() {
 		return this.maxCapacity - this.acceptedStudents.size();
 	}
 	
+	//returns the least liked student
 	Student leastPreferred() {
 		return acceptedStudents.peek();
 	}
 	
+	//kicks out the least liked student
 	void jilt() {
 		Student dislikedStudent = acceptedStudents.poll();
 		dislikedStudent.jilt();
 	}
-	
-	public Boolean isFull() {
-		return full;
-	}
-	
+		
 	class StudentComparator implements Comparator<Student> {		
 		/**
 		 * If a student has a lower rank in student preferences, want to give that student a higher
@@ -109,6 +123,12 @@ public class School {
 		}		
 	}
 	
+	/**
+	 * Resets the school so we can run Gayle-Shapely again
+	 */
+	public void reset() {
+		acceptedStudents = new PriorityQueue<Student>(maxCapacity, studentPreferenceComparator);
+	}
 	
 	@Override
 	public String toString() {

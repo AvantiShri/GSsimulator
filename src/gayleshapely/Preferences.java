@@ -1,7 +1,6 @@
 package gayleshapely;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class Preferences<E>{
@@ -17,7 +16,6 @@ public class Preferences<E>{
 			throw new RuntimeException("ranksArray has size 0");
 		}
 		
-		ranksArray = (ArrayList<ArrayList<E>>) Collections.unmodifiableList(ranksArray);
 		for (int i = 0; i <= ranksArray.size(); i++) {
 			for (E item : ranksArray.get(i)) {
 				rankOfHashMap.put(item,i);
@@ -71,7 +69,7 @@ public class Preferences<E>{
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i <= ranksArray.size(); i++) {
 			if (i > 0) {
-				sb.append(", ");
+				sb.append("; ");
 			}
 			sb.append(i+": "+ranksArray.get(i));
 		}		

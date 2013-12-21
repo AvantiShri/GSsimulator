@@ -37,12 +37,12 @@ public class Student {
 	}
 	
 	//instance-related stuff starts here...	
-	String studentName;	
+	final String studentName;	
 	Preferences<School> schoolPreferences;
 	ArrayList<School> currentRankSchoolSet;
 	int currentRankSchoolSetIndex;
+	boolean noMoreSchools = false;
 	School engagedTo;
-	School lastEngagedTo;
 	private Student(String studentName) {
 		this.studentName = studentName;
 	}
@@ -57,23 +57,53 @@ public class Student {
 	 */
 	public void proposeIfNecessary() {
 		if (engagedTo == null) {
-			School nextSchoolToProposeTo = getNextSchoolToProposeTo();
-			if (nextSchoolToProposeTo != null) {
-				nextSchoolToProposeTo.processApplication(this);
+			if (!noMoreSchools) {
+				School nextSchoolToProposeTo = getNextSchoolToProposeTo();
+				if (nextSchoolToProposeTo != null) {
+					nextSchoolToProposeTo.processApplication(this);
+				} else {
+					noMoreSchools = true;
+				}
 			}
 		}
 	}
 	
-	//returns null if we are at the bottom of the preferences list
-	School getNextSchoolToProposeTo() {
-		if (currentRankSchoolSetIndex < (currentRankSchoolSet.size()-1)) {
-			++currentRankSchoolSetIndex;
+	
+	/**
+	 * @return true if student is engaged to a school or there are no more schools to propose to.
+	 */
+	public boolean isDoneProposingForNow() {
+		if (engagedTo != null || noMoreSchools) {
+			return true;
 		} else {
-			currentRankSchoolSet = schoolPreferences.nextPreferred(currentRankSchoolSet.get(currentRankSchoolSetIndex));
-			if (currentRankSchoolSet == null) {
-				return null;
-			}
+			return false;
+		}
+	}
+	
+	//returns null if we are at the bottom of the preferences list
+	//if there are ties, jumbles up the order
+	School getNextSchoolToProposeTo() {
+		if (schoolPreferences == null) {
+			throw new RuntimeException("School preferences for student "+this+" is null...");
+		}
+		//if this is the first round of proposals
+		if (currentRankSchoolSet == null) {
+			currentRankSchoolSet = schoolPreferences.atRank(0); //get the top ranked schools
 			currentRankSchoolSetIndex = 0;
+		} else {
+			if (currentRankSchoolSetIndex < (currentRankSchoolSet.size()-1)) {
+				++currentRankSchoolSetIndex;
+			} else {
+				currentRankSchoolSet = schoolPreferences.nextPreferred(currentRankSchoolSet.get(currentRankSchoolSetIndex));
+				if (currentRankSchoolSet == null) {
+					return null;
+				}
+				if (currentRankSchoolSet.size() > 1) {
+					//jumble up the order...
+					currentRankSchoolSet = Utility.randomise(currentRankSchoolSet);
+				}
+				currentRankSchoolSetIndex = 0;
+			}
 		}
 		return currentRankSchoolSet.get(currentRankSchoolSetIndex);
 	}
@@ -84,7 +114,16 @@ public class Student {
 	
 	public void getEngagedTo(School school) {
 		this.engagedTo = school;
-		this.lastEngagedTo = school;
+	}
+	
+	/**
+	 * resets the student so that we can run Gayle-Shapely again
+	 */
+	public void reset() {
+		currentRankSchoolSet = null;
+		currentRankSchoolSetIndex = 0;
+		noMoreSchools = false;
+		engagedTo = null;
 	}
 	
 	@Override
