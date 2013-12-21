@@ -12,6 +12,14 @@ public class AllStudents implements Iterable<Student>{
 	public void addStudent(Student aStudent) {
 		studentSet.add(aStudent);
 	}
+	
+	public boolean contains(Student aStudent) {
+		return studentSet.contains(aStudent);
+	}
+	
+	public int size() {
+		return studentSet.size();
+	}
 		
 	/**
 	 * Initializes the proposal order if null, then randomizes it
