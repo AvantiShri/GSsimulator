@@ -37,7 +37,7 @@ public class Utility {
 		for (int i = 0; i < numToSample; i++) {
 			int selectedIndex = randomIntBetween(i,inputArrCopy.size());
 			outputArray.add(inputArrCopy.get(selectedIndex));
-			inputArrCopy.add(selectedIndex, inputArrCopy.get(i));			
+			inputArrCopy.set(selectedIndex, inputArrCopy.get(i));
 		}		
 		return outputArray;
 	}

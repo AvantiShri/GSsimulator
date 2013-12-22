@@ -43,4 +43,13 @@ public class MatchingSoln {
 			return false;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Student student : studentToSchool.keySet()) {
+			sb.append(student.studentName+" - "+studentToSchool.get(student).schoolName+"\n");
+		}
+		return sb.toString();
+	}
 }
