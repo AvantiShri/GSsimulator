@@ -21,6 +21,7 @@ public class Initializer {
 	AllSchools allSchools;
 	
 	public Initializer(String inputFile) {
+		System.out.println("Initializing with: "+inputFile);
 		this.inputFile = inputFile;
 	}
 	

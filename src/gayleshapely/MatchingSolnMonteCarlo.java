@@ -88,6 +88,9 @@ public class MatchingSolnMonteCarlo {
 		}
 		
 		void incrementCount(School school, Integer amt) {
+			if (school == null) {
+				school = School.getNullSchool();
+			}
 			normalizationUpToDate = false;
 			if (schoolCounts.containsKey(school) == false) {
 				throw new RuntimeException("SchoolCounts was not initialized with "+school.schoolName);

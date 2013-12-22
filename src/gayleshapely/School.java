@@ -21,11 +21,7 @@ public class School implements Comparable<School>{
 	 * @param schoolName
 	 */
 	public static void createSchool(String schoolName, Integer capacity) {
-		if (schoolFactoryLookup.containsKey(schoolName)) {
-			throw new RuntimeException("A school with name "+schoolName+" already exists");
-		} else {
-			schoolFactoryLookup.put(schoolName, new School(schoolName, capacity));
-		}
+		schoolFactoryLookup.put(schoolName, new School(schoolName, capacity));
 	}
 	
 	/**

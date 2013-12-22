@@ -1,0 +1,22 @@
+<STUDENTS>
+student1
+student2
+student3
+</STUDENTS>
+<SCHOOLS>
+school1	1
+school2	0
+school3	0
+</SCHOOLS>
+<STUDENTS RANK SCHOOLS>
+student\school	school1	school2	school3
+student1	1	2	3
+student2	3	1	2
+student3	2	3	1
+</STUDENTS RANK SCHOOLS>
+<SCHOOLS RANK STUDENTS>
+school\student	student1	student2	student3
+school1	3	1	2
+school2	2	3	1
+school3	1	2	3
+</SCHOOLS RANK STUDENTS>

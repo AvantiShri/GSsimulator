@@ -27,6 +27,8 @@ public class GayleShapely {
 		boolean done = true;
 		for (Student aStudent : allStudents) {
 			aStudent.proposeIfNecessary();
+		}
+		for (Student aStudent : allStudents) {
 			done &= aStudent.isDoneProposingForNow();
 		}
 		this.done = done;

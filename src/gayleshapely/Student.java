@@ -16,11 +16,7 @@ public class Student implements Comparable<Student>{
 	 * @param studentName
 	 */
 	static void createStudent(String studentName) {
-		if (studentFactoryLookup.containsKey(studentName)) {
-			throw new RuntimeException("A student with name "+studentName+" already exists");
-		} else {
-			studentFactoryLookup.put(studentName, new Student(studentName));
-		}
+		studentFactoryLookup.put(studentName, new Student(studentName));
 	}
 	
 	/**
