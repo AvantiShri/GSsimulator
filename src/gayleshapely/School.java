@@ -17,7 +17,7 @@ public class School implements Comparable<School>{
 	}
 	
 	/**
-	 * Creates a school with name school name, throws exception if already exists
+	 * Creates a school with name school name
 	 * @param schoolName
 	 */
 	public static void createSchool(String schoolName, Integer capacity) {
@@ -133,7 +133,7 @@ public class School implements Comparable<School>{
 	}
 
 	/**
-	 * The null school is always sorted last
+	 * The null school is always sorted last. Otherwise, sorted alphabetically.
 	 */
 	@Override
 	public int compareTo(School arg0) {

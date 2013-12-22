@@ -12,7 +12,7 @@ public class Student implements Comparable<Student>{
 	//class related stuff here...
 	static HashMap<String, Student> studentFactoryLookup = new HashMap<String,Student>();
 	/**
-	 * Creates a student with name student name, throws exception if already exists
+	 * Creates a student with name student name
 	 * @param studentName
 	 */
 	static void createStudent(String studentName) {
