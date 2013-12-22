@@ -9,8 +9,10 @@ public class GayleShapelyTest {
 	public void test() {
 		Initializer initializer = new Initializer("src/resources/test1.tsv");
 		GayleShapely gayleShapely = initializer.initialize();
-		MatchingSoln soln = gayleShapely.iterateTillConvergence_randomProposalOrders();
-		System.out.println(soln);
+		GayleShapelyMonteCarlo gsmc = new GayleShapelyMonteCarlo(gayleShapely);
+		gsmc.run(1000);
+		System.out.println(gsmc);
+		
 	}
 
 }

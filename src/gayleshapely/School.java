@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
  * Uses the factory pattern; the constructor is private.
  * @author avantis
  */
-public class School {
+public class School implements Comparable<School>{
 	//class related stuff here...
 	static HashMap<String, School> schoolFactoryLookup = new HashMap<String,School>();	
 	static String NULLSCHOOLNAME = "nullSchool";
@@ -134,5 +134,22 @@ public class School {
 	@Override
 	public String toString() {
 		return this.schoolName;
+	}
+
+	/**
+	 * The null school is always sorted last
+	 */
+	@Override
+	public int compareTo(School arg0) {
+		if (this==arg0) {
+			return 0;
+		}
+		if (this==School.getNullSchool()) {
+			return 1;
+		}
+		if (arg0 == School.getNullSchool()) {
+			return -1;
+		}
+		return this.schoolName.compareTo(arg0.schoolName);
 	}
 }

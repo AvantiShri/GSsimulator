@@ -11,7 +11,7 @@ public class GayleShapely {
 	}
 	
 	public MatchingSoln iterateTillConvergence_randomProposalOrders() {
-		MatchingSoln soln = new MatchingSoln(allSchools);
+		MatchingSoln soln = new MatchingSoln(allSchools.schoolSet);
 		while (!done) {
 			allStudents.randomizeProposalOrder();
 			iterate();

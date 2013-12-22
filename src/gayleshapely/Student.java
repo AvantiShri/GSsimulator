@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Uses the factory pattern; the constructor is private.
  * @author avantis
  */
-public class Student {
+public class Student implements Comparable<Student>{
 	
 	//class related stuff here...
 	static HashMap<String, Student> studentFactoryLookup = new HashMap<String,Student>();
@@ -89,17 +89,19 @@ public class Student {
 		//if this is the first round of proposals
 		if (currentRankSchoolSet == null) {
 			currentRankSchoolSet = schoolPreferences.atRank(0); //get the top ranked schools
+			if (currentRankSchoolSet.size() > 1) {
+				currentRankSchoolSet = Utility.randomise(currentRankSchoolSet);
+			}
 			currentRankSchoolSetIndex = 0;
 		} else {
 			if (currentRankSchoolSetIndex < (currentRankSchoolSet.size()-1)) {
 				++currentRankSchoolSetIndex;
-			} else {
+			} else {				
 				currentRankSchoolSet = schoolPreferences.nextPreferred(currentRankSchoolSet.get(currentRankSchoolSetIndex));
 				if (currentRankSchoolSet == null) {
 					return null;
 				}
 				if (currentRankSchoolSet.size() > 1) {
-					//jumble up the order...
 					currentRankSchoolSet = Utility.randomise(currentRankSchoolSet);
 				}
 				currentRankSchoolSetIndex = 0;
@@ -129,6 +131,11 @@ public class Student {
 	@Override
 	public String toString() {
 		return studentName;
+	}
+
+	@Override
+	public int compareTo(Student arg0) {
+		return this.studentName.compareTo(arg0.studentName);
 	}
 	
 }

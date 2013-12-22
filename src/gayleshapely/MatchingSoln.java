@@ -1,5 +1,6 @@
 package gayleshapely;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +10,7 @@ public class MatchingSoln {
 	HashMap<Student, School> studentToSchool = new HashMap<Student,School>();
 	HashMap<School,Set<Student>> schoolToStudents = new HashMap<School,Set<Student>>();
 	
-	public MatchingSoln(AllSchools allSchools) {
+	public MatchingSoln(Collection<School> allSchools) {
 		for (School school : allSchools) {
 			schoolToStudents.put(school, new HashSet<Student>());
 		}
