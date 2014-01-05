@@ -16,6 +16,10 @@ public class MatchingSolnMonteCarlo {
 		}
 	}
 	
+	public HashMap<Student, SchoolCounts> getStudentToSchoolCounts(){
+		return studentToSchoolCounts;
+	}
+	
 	/**
 	 * Adds the result of matchingSoln to the current running counts.
 	 * @param matchingSoln
