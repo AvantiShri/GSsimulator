@@ -9,6 +9,7 @@ public class GayleShapelyTest {
 	public void test1() {
 		Initializer initializer = new Initializer("src/resources/test1.tsv");
 		GayleShapely gayleShapely = initializer.initialize();
+
 		GayleShapelyMonteCarlo gsmc = new GayleShapelyMonteCarlo(gayleShapely);
 		gsmc.run(1000);
 		System.out.println(gsmc);

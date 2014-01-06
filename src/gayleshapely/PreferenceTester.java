@@ -34,8 +34,8 @@ public class PreferenceTester {
 		int numstudents = 5;
 		int numschools = 4;
 		PreferenceGenerator generator = new PreferenceGenerator();
-		GayleShapely gayleShapely = generator.simulateCopiedSchoolMarket(numstudents,numschools,3,2);
-//		GayleShapely gayleShapely = generator.simulateSemiIdentSchoolMarket(numstudents,numschools,3);
+//		GayleShapely gayleShapely = generator.simulateCopiedSchoolMarket(numstudents,numschools,3,2);
+		GayleShapely gayleShapely = generator.simulateSemiIdentSchoolMarket(numstudents,numschools,3);
 		
 		System.out.println("STUDENTS: \n");
 		for (Student student : gayleShapely.allStudents) {

@@ -62,7 +62,7 @@ public class PreferenceGenerator {
 		GayleShapely gayleShapely = null;
 		genStudents(numstudents);
 		genUniformCapacitySchools(numstudents,numschools);
-		genIdenticalStudentsRankingSchools(allStudentNames, allSchoolNames);
+		genUniformStudentsRankingSchools(allStudentNames, allSchoolNames);
 		genSemiIdentSchoolsRankingStudents(allStudentNames, allSchoolNames, randIndex);
 		
 		gayleShapely = new GayleShapely(allStudents, allSchools);
@@ -240,7 +240,7 @@ public class PreferenceGenerator {
 	 * Note: It's ok to force schools to rank all students but not necessarily vice versa
 	 */
 	ItemRawRank<Student> setEmptySchoolOnStudentRanking(String studentName, String schoolName, int lastPlace){
-		School school = School.getSchool(schoolName);
+//		School school = School.getSchool(schoolName);
 		Student theStudent = Student.getStudent(studentName);
 		ItemRawRank<Student> rawStudentRank = new ItemRawRank<Student>(theStudent,lastPlace);
 		return rawStudentRank;
