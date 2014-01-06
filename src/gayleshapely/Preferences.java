@@ -7,11 +7,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is used to specify school and student preferences.
+ * @author avantis
+ * @param <E> - E is the item that we are indicating preferences of - schools or students in our case.
+ */
 public class Preferences<E>{
 	
 	ArrayList<ArrayList<E>> ranksArray;
 	HashMap<E,Integer> rankOfHashMap = new HashMap<E, Integer>();
 	
+	/**
+	 * An array of sub-arrays, containing the items in order
+	 * of preference. Tied items are part of the same sub-array.
+	 * @param ranksArray
+	 */
 	public Preferences(ArrayList<ArrayList<E>> ranksArray) {
 		this.ranksArray = ranksArray;
 		if (ranksArray == null) {
@@ -28,6 +38,11 @@ public class Preferences<E>{
 		}
 	}
 	
+	/**
+	 * This class can also be initialized by passing in an ItemRawRanks class,
+	 * which can be used to extract the array of subarrays needed for initialization.
+	 * @param itemRawRanks
+	 */
 	public Preferences(ItemRawRanks<E> itemRawRanks) {
 		this(itemRawRanks.getRanksArray());
 	}
@@ -89,6 +104,11 @@ public class Preferences<E>{
 		return this.ranksArray.size();
 	}
 	
+	/**
+	 * A class to represent the raw rank of an item as may be read in from an inputfile
+	 * @author avantis
+	 * @param <E> - the item type, in our case a school or a student.
+	 */
 	public static class ItemRawRank<E> {
 		Integer rawRankNumber;
 		E item;
@@ -98,10 +118,20 @@ public class Preferences<E>{
 		}
 	}
 	
+	/**
+	 * A class to represent the full set of raw item ranks as might be read in from an input file.
+	 * Once the raw ranks are read in, this class can produce the array of subarrays needed to intialize Preferences.
+	 * @author avantis
+	 * @param <E> - the item type, in our case a school or student
+	 */
 	public static class ItemRawRanks<E> {
 		Set<Integer> rawRankNumbers = new HashSet<Integer>();
 		HashMap<Integer,Set<E>> itemsAtRawRank = new HashMap<Integer,Set<E>>();
 		
+		/**
+		 * Add in the raw rank for a particular school or student, as read in from a text file.
+		 * @param itemRawRank
+		 */
 		public void addItemRawRank(ItemRawRank<E> itemRawRank) {
 			rawRankNumbers.add(itemRawRank.rawRankNumber);
 			if (itemsAtRawRank.containsKey(itemRawRank.rawRankNumber) == false) {
@@ -110,6 +140,12 @@ public class Preferences<E>{
 			itemsAtRawRank.get(itemRawRank.rawRankNumber).add(itemRawRank.item);
 		}
 		
+		/**
+		 * Once all the raw ranks are read in, figure out the order of items
+		 * and any ties, and produce the array of arrays needed to initialize
+		 * the Preferences class.
+		 * @return
+		 */
 		public ArrayList<ArrayList<E>> getRanksArray() {
 			List<Integer> rawRanksList = new ArrayList<Integer>();
 			rawRanksList.addAll(rawRankNumbers);

@@ -9,6 +9,10 @@ import fileProcessing.MyFileReader;
 import gayleshapely.Preferences.ItemRawRanks;
 import gayleshapely.Preferences.ItemRawRank;
 
+/**
+ * Class to help initialize a GS run from reading in an input file
+ * @author avantis
+ */
 public class Initializer {
 	String inputFile;
 	

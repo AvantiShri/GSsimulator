@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Used to summarise several MatchingSoln produced by numerous Monte Carlo runs
+ * @author avantis
+ */
 public class MatchingSolnMonteCarlo {
 	
 	HashMap<Student,SchoolCounts> studentToSchoolCounts = new HashMap<Student,SchoolCounts>();
@@ -48,6 +52,13 @@ public class MatchingSolnMonteCarlo {
 		return toString(null,null);
 	}
 	
+	/**
+	 * Produces a matrix where the entries are the fraction of time a particular student
+	 * goes to a certain school
+	 * @param students - the order in which to list the students. If null, sorts in ascending
+	 * @param schools - the order in which to list the schools. If null, sorts in ascending - null school last
+	 * @return
+	 */
 	public String toString(List<Student> students, List<School> schools) {
 		StringBuilder sb = new StringBuilder();
 		if (students == null) {

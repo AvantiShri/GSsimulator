@@ -1,5 +1,9 @@
 package gayleshapely;
 
+/**
+ * Class that finds a GS solution to a particular matching problem.
+ * @author avantis
+ */
 public class GayleShapely {
 	AllStudents allStudents;
 	AllSchools allSchools;
